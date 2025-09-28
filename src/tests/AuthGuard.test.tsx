@@ -1,13 +1,19 @@
-import { render } from '@testing-library/react'
-import { RouterProvider, createMemoryRouter } from 'react-router-dom'
+import { render, screen } from '@testing-library/react'
+import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import PrivateRoute from '../routes/PrivateRoute'
 import ProfilePage from '../pages/ProfilePage'
 
 it('bloqueia rota sem token', () => {
-const router = createMemoryRouter([
-{ element: <PrivateRoute/>, children: [{ path: '/profile', element: <ProfilePage/> }] },
-{ path: '/', element: <div>login</div> }
-], { initialEntries: ['/profile'] })
-render(<RouterProvider router={router}/>)
-// Se não travar, o jest falaria por não ter erros – aqui manter simples
+  render(
+    <MemoryRouter initialEntries={['/profile']}>
+      <Routes>
+        <Route element={<PrivateRoute />}>
+          <Route path="/profile" element={<ProfilePage />} />
+        </Route>
+        <Route path="/" element={<div>login</div>} />
+      </Routes>
+    </MemoryRouter>,
+  )
+
+  expect(screen.getByText('login')).toBeInTheDocument()
 })
