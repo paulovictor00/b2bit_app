@@ -77,6 +77,11 @@ O objetivo principal é **ensinar iniciantes** a construir um sistema web comple
 ## 🚀 Como Executar
 
 ```bash
+
+crie um arquivo .env 
+e coloque a url 
+VITE_API_BASE=https://api.homologation.cliqdrive.com.br
+
 # Instalar dependências
 npm install --include=dev
 
