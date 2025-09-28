@@ -1,0 +1,26 @@
+@import 'tailwindcss';
+
+@layer base {
+  :root {
+    --brand-blue: #022744;
+    --brand-yellow: #FDCF00;
+  }
+
+  body {
+    @apply bg-[#EEF4FA] text-slate-900;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-white rounded-2xl p-8;
+    /* sombra fora do @apply é OK */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  }
+
+  .label { @apply text-sm font-medium text-slate-700; }
+  .input { @apply w-full rounded-xl bg-slate-100 p-3 outline-none; }
+  .btn   { @apply w-full rounded-xl py-3 font-semibold text-white bg-[#022744] hover:opacity-95; }
+
+  .center-screen { @apply min-h-screen grid place-items-center; }
+}
