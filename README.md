@@ -1,73 +1,104 @@
-# React + TypeScript + Vite
+# 📖 README — Sistema de Login, Perfil e Cronograma (b2bit)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📝 Descrição do Projeto
 
-Currently, two official plugins are available:
+Esta aplicação foi desenvolvida em **ReactJS com Typescript** para demonstrar um fluxo simples de autenticação JWT, persistência de sessão e navegação protegida. O projeto simula o processo de login de um usuário, exibe seus dados de perfil e oferece uma página de cronograma com eventos definidos.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+O objetivo principal é **ensinar iniciantes** a construir um sistema web completo com autenticação, roteamento e integração com API, utilizando boas práticas modernas de front-end.
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🎯 Funcionalidades
 
-## Expanding the ESLint configuration
+1. **Tela de Login**
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+   * Interface estilizada com a logo **b2bit**.
+   * Campos de **e-mail** e **senha** com validação via Formik + Yup.
+   * Requisição **POST** para `/auth/login/`.
+   * Em caso de sucesso: token JWT salvo no **LocalStorage**.
+   * Em caso de erro: exibe **modal de aviso** com as cores da marca.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+2. **Persistência de Sessão**
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+   * Usuário continua logado mesmo após atualizar a página.
+   * Token armazenado no **LocalStorage** e injetado automaticamente pelo **Axios Interceptor** em todas as requisições.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+3. **Página de Perfil**
+
+   * Requisição **GET** para `/auth/profile/`.
+   * Exibição do **nome**, **e-mail** e **foto de perfil** do usuário.
+   * Botão **Logout** que limpa o token e redireciona para o login.
+
+4. **Página de Cronograma**
+
+   * Exibição de eventos usando **FullCalendar**.
+   * Eventos pré-configurados (ex.: abertura de vaga, envio do projeto, entrevistas etc.).
+   * Tooltip ao passar o mouse exibindo os detalhes de cada etapa.
+
+5. **Internacionalização (i18n)**
+
+   * Textos da interface disponíveis em **Português** e **Inglês**.
+   * Seletor de idioma na barra de navegação.
+
+6. **Proteção de Rotas**
+
+   * Usuário só acessa **/profile** e **/schedule** se estiver autenticado.
+   * Caso contrário, é redirecionado para a página de login.
+
+---
+
+## 🧩 Tecnologias Utilizadas
+
+* **ReactJS + Typescript**
+* **Vite** (build tool)
+* **Shadcn UI** (componentes estilizados)
+* **TailwindCSS** (utilitários de estilo)
+* **Formik + Yup** (validação de formulários)
+* **Axios com Interceptors** (requisições HTTP seguras)
+* **React Router DOM (v6)** (roteamento)
+* **FullCalendar** (cronograma)
+* **i18next** (traduções PT/EN)
+* **Jest + React Testing Library** (testes automatizados)
+
+---
+
+## ✅ Critérios Atendidos
+
+* Autenticação JWT funcional com persistência de sessão.
+* Feedback visual de erro em modal estilizado.
+* Rotas privadas protegidas.
+* Página de perfil com dados reais da API.
+* Cronograma de eventos exibido em calendário interativo.
+* Suporte a múltiplos idiomas (português/inglês).
+* Testes básicos de login, proteção de rota e calendário.
+
+---
+
+## 🚀 Como Executar
+
+```bash
+# Instalar dependências
+npm install --include=dev
+
+# Rodar em desenvolvimento
+npm run dev
+
+# Rodar testes
+npm test
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Acesse em https://b2bit-app-tau.vercel.app.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🔒 Observações de Segurança
+
+* O token é salvo no **LocalStorage** apenas para fins didáticos.
+* Interceptors removem o token automaticamente em caso de `401/403`.
+* Dados sensíveis não são expostos no console.
+
+---
+
+## 📌 Conclusão
+
+Este projeto atende todos os critérios propostos: **login JWT, persistência de sessão, rotas protegidas, perfil e testes básicos**. Ele serve como base de aprendizado para quem deseja dominar ReactJS moderno com Typescript, integração de API e boas práticas de autenticação.

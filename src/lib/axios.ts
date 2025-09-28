@@ -1,11 +1,11 @@
 import axios from 'axios'
 
 const api = axios.create({
-baseURL: import.meta.env.VITE_API_BASE,
-headers: {
-Accept: 'application/json;version=v1_web',
-'Content-Type': 'application/json',
-}
+  baseURL: process.env.VITE_API_BASE ?? '',
+  headers: {
+    Accept: 'application/json;version=v1_web',
+    'Content-Type': 'application/json',
+  },
 })
 
 // Adiciona token automaticamente
